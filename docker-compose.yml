@@ -1,11 +1,14 @@
 version: "2.1"
 services:
   pigpiod:
-    #Direct build:
+    # Either use "build" or "image" to launch container from.
+    # Direct build:
     build: .
-    #Using image from Docker hub:
-    #image: zinen2/alpine-pigpiod:arm32v6 # For Raspberry Pi 1 (Arm6)
+    # Using image from Docker hub:
+    #image: zinen2/alpine-pigpiod:arm32v6 # For Raspberry Pi 1 (Arm6).
     restart: always
+    # Privileged required to access GPIO.
     privileged: true
     ports:
+      # Port can be changed from the default 8888.
       - 8888:8888  
