@@ -14,6 +14,7 @@ or using a tagged image, eg. `docker run -it -p 8888:8888 --privileged zinen2/al
 *pigpio* is a library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
 
 ## Which tag to use?
+It should not be nessasary specifi the architecture of the board, but just in case theese are here:
 | Device Name | Docker image tag | Tested?* | 
 | --- | --- | --- |
 | Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | yes, rpi1 |
