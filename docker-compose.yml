@@ -1,7 +1,9 @@
 version: "2.1"
 services:
   pigpiod:
-    image: zinen2/alpine-pigpiod
+    #Direct build:
+    build: .
+    #Using image from Docker hub:
     #image: zinen2/alpine-pigpiod:arm32v6 # For Raspberry Pi 1 (Arm6)
     restart: always
     privileged: true
