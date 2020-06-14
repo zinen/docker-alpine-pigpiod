@@ -10,3 +10,6 @@ Usage: `docker run -it -p 8888:8888 zinen2/alpine-pigpiod`
 ### What is pigpiod
 **pigpiod** is a linux deamon that launches the *[pigpio](http://abyz.me.uk/rpi/pigpio/index.html)*. *pigpio* and **pigpiod** is from the same creator.
 *pigpio* is a library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
+
+## Credits
+`start.sh` is a copy from another project and the creators repo is [found here](https://github.com/janvda/balena-node-red).
