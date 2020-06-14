@@ -1,0 +1,9 @@
+version: "2.1"
+services:
+  pigpiod:
+    image: zinen2/alpine-pigpiod
+    #image: zinen2/alpine-pigpiod:arm32v6 # For Raspberry Pi 1 (Arm6)
+    restart: always
+    privileged: true
+    ports:
+      - 8888:8888  
