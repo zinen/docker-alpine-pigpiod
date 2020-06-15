@@ -15,4 +15,4 @@ FROM alpine
 COPY --from=builder /usr/local /usr/local
 # Copy and Start app
 COPY start.sh /start.sh
-CMD ["sh", "/start.sh"]
+CMD ["/start.sh"]
