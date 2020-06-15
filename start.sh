@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Checking who is listening/bound to port 8888 ..."
 netstat -tlep | grep 8888
@@ -16,7 +16,7 @@ echo "Starting daemon pigpiod ..."
 # for pigpiod options see http://abyz.me.uk/rpi/pigpio/pigpiod.html
 #    option -g will run the deamon in the foreground.
 #    option -a 1 should assure that we are not using GPU memory.
-pigpiod -g -a 1 # Alpine 
+pigpiod -g -a 1
 echo "... daemon stopped unexpectedly."
 
 # added extra logic for issue: https://github.com/janvda/balena-node-red/issues/1
