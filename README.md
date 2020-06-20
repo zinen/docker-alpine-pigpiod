@@ -15,13 +15,13 @@ or using a tagged image, eg. `docker run -it -p 8888:8888 --privileged zinen2/al
 
 ## Which tag to use?
 It should not be necessary to specify the architecture of the board, but just in case thees are here. I had to specify it to work with [belenaCloud](https://www.balena.io/cloud).
-| Device Name | Docker image tag | Tested?* | 
-| --- | --- | --- |
-| Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | yes, rpi1 |
-| Raspberry Pi 2 | zinen2/alpine-pigpiod:arm32v7 | no |
-| Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:arm32v7 | no |
-| Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:arm64v8 | no |
-| Raspberry Pi 4 | zinen2/alpine-pigpiod:arm64v8 | no |
+| Device Name | Docker image tag | Tested?* | Version tested |
+| --- | --- | --- | --- |
+| Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | :heavy_check_mark: yes, works on rpi1 | 76 |
+| Raspberry Pi 2 | zinen2/alpine-pigpiod:arm32v7 | :black_square_button: no | NA |
+| Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:arm32v7 | :heavy_check_mark: yes, works | 76 |
+| Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:arm64v8 | :x: yes but don't work | 76 |
+| Raspberry Pi 4 | zinen2/alpine-pigpiod:arm64v8 | :black_square_button: no | NA |
 
 \**If you test it on your hardware, please respond back if it worked.*
 
