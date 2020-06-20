@@ -1,5 +1,7 @@
 # docker-alpine-pigpiod
-Base for Docker image containing [pigpiod](http://abyz.me.uk/rpi/pigpio/pigpiod.html) running on port 8888. 
+![Docker Pulls](https://img.shields.io/docker/pulls/zinen2/alpine-pigpiod)
+
+Docker image containing [pigpiod](http://abyz.me.uk/rpi/pigpio/pigpiod.html) running on port 8888. 
 Can be used together with [node-red](https://nodered.org/) to access GPIOs on raspberry pi. by installing package [node-red-node-pi-gpiod](https://flows.nodered.org/node/node-red-node-pi-gpiod)
 
 Since this Docker image is based on the Linux distribution **alpine**, the image i very small (~6MB).
