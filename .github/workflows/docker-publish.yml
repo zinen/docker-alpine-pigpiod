@@ -84,4 +84,5 @@ jobs:
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            $IMAGE_NAME:$VERSION
+            ${{ IMAGE_NAME }}:${{ VERSION }}
+            
