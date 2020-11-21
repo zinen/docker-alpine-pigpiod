@@ -76,6 +76,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
+          echo "::set-env name=VERSION::$VERSION"
            
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -85,5 +86,5 @@ jobs:
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ jobs.push.steps.makeTags.VERSION }}
+            ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
             
