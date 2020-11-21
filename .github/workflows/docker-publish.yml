@@ -55,6 +55,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           
       - name: Make tags
+        id: makeTags
         run: |
           IMAGE_ID=docker.io/$IMAGE_NAME
           
@@ -84,5 +85,5 @@ jobs:
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            ${{ env.IMAGE_NAME }}:${{ steps.makeTags.VERSION }}
             
