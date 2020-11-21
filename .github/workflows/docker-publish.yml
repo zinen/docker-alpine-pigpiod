@@ -76,7 +76,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
-          echo "::set-env name=VERSION::$VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
            
       - name: Build and push
         uses: docker/build-push-action@v2
