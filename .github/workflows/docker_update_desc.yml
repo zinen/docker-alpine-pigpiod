@@ -18,6 +18,11 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
         
+      - name: Modify readme on Docker Hub
+        run: |
+          # Add link to this github repo as the titel on Docker Hub
+          sed -i 's/# docker-alpine-pigpiod/# [docker-alpine-pigpiod on github](https:\/\/github.com\/zinen\/docker-alpine-pigpiod)/' README.md
+        
       - name: Update repo description
         uses: peter-evans/dockerhub-description@v2
         with:
