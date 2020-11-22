@@ -16,7 +16,7 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
-  IMAGE_NAME: zinen/docker-alpine-pigpiod
+  IMAGE_NAME: zinen/alpine-pigpiod
 
 jobs:
   # Run tests.
