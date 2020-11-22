@@ -84,6 +84,8 @@ jobs:
           echo IMAGE_NAME=$IMAGE_NAME
           echo VERSION=$VERSION
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+          # Add labels to Dockerfile
+          echo "LABEL release_tag=$IMAGE_NAME:$VERSION" >> Dockerfile
            
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -94,6 +96,3 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          labels: |
-            org.opencontainers.image.version=${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-            org.opencontainers.image.ref.name=${{ env.GIT_REF }}
