@@ -19,7 +19,7 @@ or using a tagged image, eg. `docker run -it -p 8888:8888 --privileged zinen2/al
 
 ## Which tag to use?
 It should not be necessary to specify the architecture of the board, but just in case thees are here. I had to specify it to work with [belenaCloud](https://www.balena.io/cloud).
-| Device Name | Docker image tag | Tested?* | pigpio version tested |
+| Device Name | Docker image tag | Tested?* | [pigpio version tested][pigpio-realease] |
 | --- | --- | --- | --- |
 | Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | :heavy_check_mark: yes, works on rpi1 | 76 |
 | Raspberry Pi 2 | zinen2/alpine-pigpiod:arm32v7 | :black_square_button: no | NA |
@@ -29,13 +29,13 @@ It should not be necessary to specify the architecture of the board, but just in
 
 \**If you test it on your hardware, please respond back if it worked.*
 
-[64-issue]: https://github.com/joan2937/pigpio/issues/362
-
 ### Specific version
 It is possible to pull a specific version via. eg. `docker pull zinen2/alpine-pigpiod:pigpio-v78` for pullung version 78. See list of tags available on docker hub.  
 
 ### Updates of images
-The images are automatic updated when a new release of pigpio is posted at [github releases](https://github.com/joan2937/pigpio/releases)
+The images are automatic updated when a new release of pigpio is posted at [github releases][pigpio-realease]
 
+[64-issue]: https://github.com/joan2937/pigpio/issues/362
+[pigpio-realease]: https://github.com/joan2937/pigpio/releases
 ## Credits
 `start.sh` is a copy from another project and the creator’s repo is [found here](https://github.com/janvda/balena-node-red).

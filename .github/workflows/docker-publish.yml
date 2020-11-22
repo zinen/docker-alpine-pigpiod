@@ -1,0 +1,112 @@
+name: Docker hub auto publish
+
+on:
+  push:
+    # Publish `master` as Docker image on push.
+    branches:
+      - master
+    paths:
+      # Run when file is edited
+      - Dockerfile
+      - start.sh
+      - release-versions/pigpio-latest.log
+      - .github/workflows/docker-publish.yml
+
+  # Run tests for any PRs.
+  pull_request:
+
+env:
+  # Image name at docker hub
+  IMAGE_NAME: zinen2/alpine-pigpiod
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: |
+          if [ -f docker-compose.test.yml ]; then
+            docker-compose --file docker-compose.test.yml build
+            docker-compose --file docker-compose.test.yml run sut
+          else
+            docker build . --file Dockerfile
+          fi
+
+  push:
+    # Ensure test job passes before pushing image.
+    needs: test
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+        
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+       
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Make tags
+        id: makeTags
+        run: |        
+          # Add labels to Dockerfile
+          PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
+          echo "LABEL pigpio_version=$PIGPIO_VERSION" >> Dockerfile
+          # Add to environment variable
+          echo "PIGPIO_VERSION=$PIGPIO_VERSION" >> $GITHUB_ENV
+          
+      - name: Build and push arm32v6
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm/v6
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:arm32v6
+            ${{ env.IMAGE_NAME }}:arm32v6-pigpio-v${{ env.PIGPIO_VERSION }}
+          
+      - name: Build and push arm32v7
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm/v7
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:arm32v7
+          
+      - name: Build and push arm64v8
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:arm64v8
+           
+      - name: Build and push latest
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm/v6,linux/arm/v7,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:pigpio-v${{ env.PIGPIO_VERSION }}
