@@ -18,7 +18,6 @@ jobs:
           RELEASE_VERSION=$( curl -sL https://api.github.com/repos/joan2937/pigpio/releases/latest | jq -r ".tag_name" | sed -e 's/^v//')
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
           echo Release version $RELEASE_VERSION
-          echo Release version $env.RELEASE_VERSION
           echo $RELEASE_VERSION > release-versions/pigpio-latest.log
           
           
@@ -36,7 +35,7 @@ jobs:
       - name: Commit latest release version
         if: steps.git-check.outputs.modified == 'true'
         run: |
-          git config --global user.name 'Your Name'
-          git config --global user.email 'your-email@users.noreply.github.com'
-          git commit -am "New release version $env.RELEASE_VERSION"
+          git config --global user.name 'bot_${{ github.event_name }}'
+          git config --global user.email 'bot_${{ github.event_name }}@users.noreply.github.com'
+          git commit -am "New release version $RELEASE_VERSION"
           git push
