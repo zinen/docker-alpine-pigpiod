@@ -95,4 +95,5 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           labels: |
-            release_tag=${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            org.opencontainers.image.version=${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            org.opencontainers.image.ref.name=${{ env.GIT_REF }}
