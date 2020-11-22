@@ -1,4 +1,4 @@
-name: Docker
+name: Docker hub auto publish
 
 on:
   push:
@@ -86,6 +86,8 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           # Add labels to Dockerfile
           echo "LABEL release_tag=$IMAGE_NAME:$VERSION" >> Dockerfile
+          PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
+          echo "LABEL pigpio_version=$PIGPIO_VERSION" >> Dockerfile
            
       - name: Build and push
         uses: docker/build-push-action@v2
