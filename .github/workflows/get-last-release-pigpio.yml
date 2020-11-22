@@ -1,9 +1,13 @@
 name: Get latest release version
 on:
   push:
+    branches: 
+      - master
+      - zinen-auto-build-image   
     paths:
       # Run when this file i edited
       - .github/workflows/get-last-release-pigpio.yml
+
   schedule:
     - cron:  '0 10 * * *'
 env:
@@ -41,10 +45,9 @@ jobs:
           git config --global user.name 'bot_${{ github.event_name }}'
           git config --global user.email 'bot_${{ github.event_name }}@users.noreply.github.com'
           git commit -am "bot_${{ github.event_name }}: release v$RELEASE_VERSION"
-#           git push
 
       - name: Create Pull Request
-#         if: steps.git-check.outputs.modified == 'true'
+        if: steps.git-check.outputs.modified == 'true'
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PAT }}
