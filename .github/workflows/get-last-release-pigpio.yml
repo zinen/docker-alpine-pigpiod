@@ -38,7 +38,9 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         uses: peter-evans/create-pull-request@v3
         with:
+          token: ${{ secrets.PAT }}
           commit-message: Update pigpio to v${{ env.RELEASE_VERSION }}
+          committer: GitHub <noreply@github.com>
           branch: auto-new-pigpio-release
           delete-branch: true
           title: '[Auto] Update pigpio to v${{ env.RELEASE_VERSION }}'
