@@ -12,6 +12,7 @@ RUN make
 RUN make install && make clean
 # Start of new base image
 FROM alpine
+LABEL maintainer="zinen@users.noreply.github.com"
 COPY --from=builder /usr/local /usr/local
 # Copy app into image
 COPY start.sh /start.sh
