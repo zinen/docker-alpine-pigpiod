@@ -2,7 +2,7 @@ name: Docker update description
 
 on:
   push:
-    branches: [ main ]
+    branches: master
 
 env:
   # Image name at docker hub
