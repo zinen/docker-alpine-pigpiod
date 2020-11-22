@@ -67,6 +67,8 @@ jobs:
           # Add labels to Dockerfile
           PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
           echo "LABEL pigpio_version=$PIGPIO_VERSION" >> Dockerfile
+          # Add to environment variable
+          echo "PIGPIO_VERSION=$PIGPIO_VERSION" >> $GITHUB_ENV
           
       - name: Build and push arm32v6
         uses: docker/build-push-action@v2
