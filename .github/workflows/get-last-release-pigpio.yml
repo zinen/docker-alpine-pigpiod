@@ -28,7 +28,7 @@ jobs:
            echo ${{ github }} | jq '.'
            echo env
            echo ${{ env }} | jq '.'
-           echo secrets
+           echo secrets 
            echo ${{ secrets }} | jq '.'
            echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
       
