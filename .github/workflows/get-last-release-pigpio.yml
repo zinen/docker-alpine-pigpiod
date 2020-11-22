@@ -14,15 +14,23 @@ jobs:
           
       - name: Fetch release version
         run: |
-          curl -sL https://api.github.com/repos/joan2937/pigpio/releases/latest | \
-          jq -r ".tag_name" > release-versions/pigpio-latest.log
+          # Use github API to get latest release (tag_name) and remove the 'v' from it
+          RELEASE_VERSION=$( curl -sL https://api.github.com/repos/joan2937/pigpio/releases/latest | jq -r ".tag_name" | sed -e 's/^v//')
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
+          echo Release version $RELEASE_VERSION
+          echo Release version $env.RELEASE_VERSION
+          echo $RELEASE_VERSION > release-versions/pigpio-latest.log
+          
           
       - name: Check for modified files
         id: git-check
         run:  |
-           echo ${{ github }}
-           echo ${{ env }}
-           echo ${{ secrets }}
+           echo github
+           echo ${{ github }} | jq '.'
+           echo env
+           echo ${{ env }} | jq '.'
+           echo secrets
+           echo ${{ secrets }} | jq '.'
            echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
       
       - name: Commit latest release version
@@ -30,5 +38,5 @@ jobs:
         run: |
           git config --global user.name 'Your Name'
           git config --global user.email 'your-email@users.noreply.github.com'
-          git commit -am "New release version"
+          git commit -am "New release version $env.RELEASE_VERSION"
           git push
