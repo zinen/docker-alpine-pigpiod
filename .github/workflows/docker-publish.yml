@@ -2,14 +2,15 @@ name: Docker hub auto publish
 
 on:
   push:
-    # Publish `master` as Docker `latest` image.
+    # Publish `master` as Docker image on push.
     branches:
       - master
       - zinen-auto-build-image
-
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+    paths:
+      # Run when file is edited
+      - Dockerfile
+      - start.sh
+      - release-versions/pigpio-latest.log
 
   # Run tests for any PRs.
   pull_request:
@@ -36,8 +37,6 @@ jobs:
             docker build . --file Dockerfile
           fi
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
     needs: test
@@ -63,33 +62,43 @@ jobs:
           
       - name: Make tags
         id: makeTags
-        run: |
-          IMAGE_ID=docker.io/$IMAGE_NAME
-          
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          
-          # Strip git ref prefix from version, keeps branch name
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          
-          # Strip "v" prefix from tag name, keeps eg. 1.0.2
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-          
-          # Show created tags from inputs
-          echo github.ref=${{ github.ref }}
-          echo IMAGE_ID=$IMAGE_ID
-          echo IMAGE_NAME=$IMAGE_NAME
-          echo VERSION=$VERSION
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+        run: |        
           # Add labels to Dockerfile
-          echo "LABEL release_tag=$IMAGE_NAME:$VERSION" >> Dockerfile
           PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
           echo "LABEL pigpio_version=$PIGPIO_VERSION" >> Dockerfile
+          
+      - name: Build and push arm32v6
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm/v6
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:arm32v6
+            ${{ env.IMAGE_NAME }}:arm32v6-pigpio-v${{ env.PIGPIO_VERSION }}
+          
+      - name: Build and push arm32v7
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm/v7
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:arm32v7
+          
+      - name: Build and push arm64v8
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:arm64v8
            
-      - name: Build and push
+      - name: Build and push latest
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -97,4 +106,5 @@ jobs:
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:pigpio-v${{ env.PIGPIO_VERSION }}
