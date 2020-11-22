@@ -2,8 +2,7 @@ name: Get latest release version
 on:
   push:
     branches: 
-      - master
-      - zinen-auto-build-image   
+      - master 
     paths:
       # Run when file is edited
       - .github/workflows/get-last-release-pigpio.yml
