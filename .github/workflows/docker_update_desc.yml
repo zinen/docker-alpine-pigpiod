@@ -3,6 +3,9 @@ name: Docker update description
 on:
   push:
     branches: master
+    paths:
+      - README.md
+      - .github/workflows/docker_update_desc.yml
 
 env:
   # Image name at docker hub
