@@ -2,7 +2,8 @@ name: Docker update description
 
 on:
   push:
-    branches: master
+    branches: 
+      - master
     paths:
       - README.md
       - .github/workflows/docker_update_desc.yml
