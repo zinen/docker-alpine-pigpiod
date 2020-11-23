@@ -6,7 +6,7 @@ on:
     branches:
       - 'docker-pigpio-v76'
     paths:
-      # Run when file is edited
+      # Run when file is edited.
       - release-versions/pigpio-latest.log
       - .github/workflows/docker-publish.yml
 
