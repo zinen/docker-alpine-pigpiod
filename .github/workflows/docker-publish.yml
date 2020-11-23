@@ -4,11 +4,9 @@ on:
   push:
     # Publish `master` as Docker image on push.
     branches:
-      - master
+      - 'docker-pigpio-v76'
     paths:
       # Run when file is edited
-      - Dockerfile
-      - start.sh
       - release-versions/pigpio-latest.log
       - .github/workflows/docker-publish.yml
 
@@ -77,28 +75,7 @@ jobs:
           platforms: linux/arm/v6
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:arm32v6
             ${{ env.IMAGE_NAME }}:arm32v6-pigpio-v${{ env.PIGPIO_VERSION }}
-          
-      - name: Build and push arm32v7
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/arm/v7
-          push: true
-          tags: |
-            ${{ env.IMAGE_NAME }}:arm32v7
-          
-      - name: Build and push arm64v8
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/arm64
-          push: true
-          tags: |
-            ${{ env.IMAGE_NAME }}:arm64v8
            
       - name: Build and push latest
         uses: docker/build-push-action@v2
@@ -108,5 +85,4 @@ jobs:
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:pigpio-v${{ env.PIGPIO_VERSION }}
