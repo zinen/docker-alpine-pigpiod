@@ -6,7 +6,8 @@ RUN apk add alpine-sdk
 RUN wget --output-document=download.zip https://github.com/joan2937/pigpio/archive/v76.zip
 RUN mkdir download
 RUN unzip download.zip -d download
-WORKDIR /download/*/
+WORKDIR /download/*
+RUN echo pwd
 # Fix for compiling on Alpine, https://github.com/joan2937/pigpio/issues/107
 RUN sed -i -e 's/ldconfig/echo ldconfig disabled/g' Makefile
 RUN make
