@@ -11,7 +11,7 @@ Since this Docker image is based on the Linux distribution **alpine**, the image
 Usage: `docker run -it -p 8888:8888 --privileged zinen2/alpine-pigpiod`
 or using a tagged image, eg. `docker run -it -p 8888:8888 --privileged zinen2/alpine-pigpiod:arm32v6`
 
-*This container must be run on a raspberry pi itself, but the GPIO's is accessible for other devices on port 8888*
+*This container must be run on a raspberry pi itself, but the GPIO's is accessible for other devices on port 8888.*
 
 ### What is pigpiod
 **pigpiod** is a Linux daemon that launches the *[pigpio](http://abyz.me.uk/rpi/pigpio/index.html)*. *pigpio* and **pigpiod** is from the same creator.
@@ -19,6 +19,8 @@ or using a tagged image, eg. `docker run -it -p 8888:8888 --privileged zinen2/al
 
 ## Which tag to use?
 It should not be necessary to specify the architecture of the board, but just in case thees are here. I had to specify it to work with [belenaCloud](https://www.balena.io/cloud).
+
+As default you should use no tag or `latest` - but as alternative theses are here:
 
 | Device Name | Docker image tag | Tested?* | [pigpio version tested][pigpio-realease] |
 | --- | --- | --- | --- |
@@ -28,13 +30,13 @@ It should not be necessary to specify the architecture of the board, but just in
 | Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:arm64v8 | :x: [yes but don't work][64-issue] | 76 |
 | Raspberry Pi 4 | zinen2/alpine-pigpiod:arm64v8 | :black_square_button: no | NA |
 
-\**If you test it on your hardware, please respond back if it worked.*
+\**If you test it on your hardware, please respond back if it worked. By issue or pull request.*
 
 ### Specific version
-It is possible to pull a specific version via. eg. `docker pull zinen2/alpine-pigpiod:pigpio-v78` for pullung version 78. See list of tags available on docker hub.  
+It is possible to pull a specific version via. eg. `docker pull zinen2/alpine-pigpiod:pigpio-v78` for pulling version 78. See list of tags available on docker hub.  
 
 ### Updates of images
-The images are automatic updated when a new release of pigpio is posted at [github releases][pigpio-realease]
+The images are automatic updated when a new release of pigpio is posted at [github releases][pigpio-realease].
 
 [64-issue]: https://github.com/joan2937/pigpio/issues/362
 [pigpio-realease]: https://github.com/joan2937/pigpio/releases
