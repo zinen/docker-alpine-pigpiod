@@ -19,6 +19,7 @@ or using a tagged image, eg. `docker run -it -p 8888:8888 --privileged zinen2/al
 
 ## Which tag to use?
 It should not be necessary to specify the architecture of the board, but just in case thees are here. I had to specify it to work with [belenaCloud](https://www.balena.io/cloud).
+
 | Device Name | Docker image tag | Tested?* | [pigpio version tested][pigpio-realease] |
 | --- | --- | --- | --- |
 | Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | :heavy_check_mark: yes, works on rpi1 | 76 |
