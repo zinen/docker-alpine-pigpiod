@@ -9,6 +9,7 @@ on:
       # Run when file is edited.
       - release-versions/pigpio-latest.log
       - .github/workflows/docker-publish.yml
+      - Dockerfile
 
   # Run tests for any PRs.
   pull_request:
