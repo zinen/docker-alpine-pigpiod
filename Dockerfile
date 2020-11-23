@@ -4,9 +4,8 @@ FROM alpine as builder
 RUN apk add alpine-sdk
 # Follow the install guide from creator of pigpio, http://abyz.me.uk/rpi/pigpio/download.html
 RUN wget --output-document=download.zip https://github.com/joan2937/pigpio/archive/v76.zip
-RUN mkdir download
 RUN unzip -d download download.zip
-WORKDIR /download/*
+RUN cd /download/*
 RUN pwd
 # Fix for compiling on Alpine, https://github.com/joan2937/pigpio/issues/107
 RUN sed -i -e 's/ldconfig/echo ldconfig disabled/g' Makefile
