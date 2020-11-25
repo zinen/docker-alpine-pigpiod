@@ -24,10 +24,10 @@ As default you should use no tag or `latest` - but as alternative theses are her
 
 | Device Name | Docker image tag | Tested?* | [pigpio version tested][pigpio-realease] |
 | --- | --- | --- | --- |
-| Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | :heavy_check_mark: yes, works on rpi1 | 76 |
-| Raspberry Pi 2 | zinen2/alpine-pigpiod:arm32v7 | :black_square_button: no | NA |
-| Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:arm32v7 | :heavy_check_mark: yes, works | 76, 78 |
-| Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:arm64v8 | :x: [yes but don't work][64-issue] | 76 |
+| Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | ✔ yes, works on rpi1 | 76 |
+| Raspberry Pi 2 | zinen2/alpine-pigpiod:arm32v7 | ☐ no | NA |
+| Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:arm32v7 | ✔ yes, works | 76, 78 |
+| Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:arm64v8 | ❌ [yes but don't work][64-issue] | 76 |
 | Raspberry Pi 4 | zinen2/alpine-pigpiod:arm64v8 | :black_square_button: no | NA |
 
 \**If you test it on your hardware, please respond back if it worked. By issue or pull request.*
