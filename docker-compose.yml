@@ -1,14 +1,19 @@
 version: "2.1"
 services:
   pigpiod:
-    # Either use "build" or "image" to launch container from.
-    # Direct build:
-    build: .
+    # Either use "image" or "build" to launch container
     # Using image from Docker hub:
-    #image: zinen2/alpine-pigpiod:arm32v6 # For Raspberry Pi 1 (Arm6).
+    image: zinen2/alpine-pigpiod
+    # Direct build from current directory:
+    build: .
+    # Restarts does happened when binding to GPIOs fails. Auto restarting fixes most problems with hardware access.
     restart: always
-    # Privileged required to access GPIO.
-    privileged: true
+    # Grant access to GPIO device
+    devices:
+        - /dev/gpiochip0
+    # If above device access keeps failing, try setting container to run privileged. 
+    # Running privileged is never recommended. But it does fix many problems when access to hardware is required.
+    #privileged: true
     ports:
       # Port can be changed from the default 8888.
       - 8888:8888  
