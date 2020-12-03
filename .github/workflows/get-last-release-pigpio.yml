@@ -2,7 +2,7 @@ name: Get latest release version
 on:
   push:
     branches: 
-      - none
+      - master
     paths:
       # Run when file is edited
       - .github/workflows/get-last-release-pigpio.yml
