@@ -2,7 +2,6 @@ name: Docker hub auto publish image
 
 on:
   push:
-    # Publish `master` as Docker image on push.
     branches:
       - master
     paths:
