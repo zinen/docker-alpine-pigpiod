@@ -20,6 +20,11 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
           
       - name: Fetch release version
         run: |
@@ -52,6 +57,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update pigpio to v${{ env.RELEASE_VERSION }}
+          committer:  GitHub <noreply@github.com>
           branch: auto-new-pigpio-release
           delete-branch: true
           title: '[Auto] Update pigpio to v${{ env.RELEASE_VERSION }}'
