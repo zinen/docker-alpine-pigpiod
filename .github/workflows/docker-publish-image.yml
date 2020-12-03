@@ -33,7 +33,9 @@ jobs:
           # Change download link inside Dockerfile to match pigpio version stated here
           # this is only relevant if two releases are made in a short time 
           PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
-          sed -i 's/master/$PIGPIO_VERSION/' Dockerfile
+          sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
+          # Show new Dockerfile content
+          cat Dockerfile
 
       - name: Run tests
         run: |
@@ -76,7 +78,9 @@ jobs:
           echo "PIGPIO_VERSION=$PIGPIO_VERSION" >> $GITHUB_ENV
           # Change download link inside Dockerfile to match pigpio version stated here
           # this is only relevant if two releases are made in a short time 
-          sed -i 's/master/$PIGPIO_VERSION/' Dockerfile
+          sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
+          # Show new Dockerfile content
+          cat Dockerfile
           
       - name: Build and push arm32v6
         uses: docker/build-push-action@v2
