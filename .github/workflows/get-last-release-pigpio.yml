@@ -22,7 +22,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
           
-      - name: Fetch release tag
+      - name: Fetch latest release tag
         run: |
           # Use github API to get latest release (tag_name)
           RELEASE_TAG=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITEL/releases/latest | jq -r ".tag_name" )
@@ -33,7 +33,7 @@ jobs:
           # Save the found release to a file in folder(folder must be there before)
           echo $RELEASE_TAG > release-versions/$REPO_TITEL-latest.log
 
-      - name: Create Pull Request
+      - name: Create Pull Request # Does so only if any files in repo have changed
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PAT }}
