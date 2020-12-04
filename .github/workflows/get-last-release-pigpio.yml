@@ -37,12 +37,6 @@ jobs:
           echo Release tag $RELEASE_TAG
           # Save the found release to a file in folder(folder must be there before)
           echo $RELEASE_TAG > release-versions/$REPO_TITEL-latest.log
-          
-      - name: Check for modified files
-        id: git-check
-        run:  |
-          # Determine if repo was changed due to new release version from the step above
-          echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
 
       - name: Create Pull Request
         if: steps.git-check.outputs.modified == 'true'
