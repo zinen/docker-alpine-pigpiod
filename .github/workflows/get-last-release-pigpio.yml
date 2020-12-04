@@ -21,11 +21,6 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
-
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
           
       - name: Fetch release tag
         run: |
@@ -39,7 +34,6 @@ jobs:
           echo $RELEASE_TAG > release-versions/$REPO_TITEL-latest.log
 
       - name: Create Pull Request
-        if: steps.git-check.outputs.modified == 'true'
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PAT }}
