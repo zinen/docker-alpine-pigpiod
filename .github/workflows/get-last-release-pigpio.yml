@@ -58,7 +58,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update ${{ env.REPO_TITEL }} to ${{ env.RELEASE_VERSION }}
-          committer: GitHub <noreply@github.com>
+          #committer: GitHub <noreply@github.com>
           # author pull request as github-actions tagged with bot and event_name
           author:  GitHub <noreply@github.com>
           branch: auto-new-${{ env.REPO_TITEL }}-release
@@ -71,3 +71,4 @@ jobs:
             
             [1]: https://github.com/peter-evans/create-pull-request
           labels: auto-pr
+          draft: true
