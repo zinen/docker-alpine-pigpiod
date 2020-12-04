@@ -27,7 +27,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
           
-      - name: Fetch release version
+      - name: Fetch release tag
         run: |
           # Use github API to get latest release (tag_name)
           RELEASE_VERSION=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITEL/releases/latest | jq -r ".tag_name" )
