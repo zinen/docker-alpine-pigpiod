@@ -58,6 +58,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update ${{ env.REPO_TITEL }} to ${{ env.RELEASE_VERSION }}
+          committer: GitHub <noreply@github.com>
           # author pull request as github-actions tagged with bot and event_name
           author:  github-actions[bot][${{ github.event_name }}]  <noreply@github.com>
           branch: auto-new-${{ env.REPO_TITEL }}-release
