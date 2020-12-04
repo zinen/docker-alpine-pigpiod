@@ -38,7 +38,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update ${{ env.REPO_TITEL }} to ${{ env.RELEASE_TAG }}
-          committer: bot_${{ github.event_name }}@users.noreply.github.com
+          committer: bot_${{ github.event_name }} <bot_${{ github.event_name }}@users.noreply.github.com>
           # author cant be changed from owner when using PAT issue#48
           branch: auto-new-${{ env.REPO_TITEL }}-release
           delete-branch: true
