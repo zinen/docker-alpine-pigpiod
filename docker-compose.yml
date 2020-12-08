@@ -5,7 +5,7 @@ services:
     # Using image from Docker hub:
     image: zinen2/alpine-pigpiod
     # Direct build from current directory:
-    build: .
+    #build: .
     # Restarts does happened when binding to GPIOs fails. Auto restarting fixes most problems with hardware access.
     restart: always
     # Grant access to GPIO device
