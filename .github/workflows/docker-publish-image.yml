@@ -3,7 +3,7 @@ name: Docker hub auto publish image
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       # Run when file is edited
       - Dockerfile
