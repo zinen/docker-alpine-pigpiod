@@ -1,7 +1,9 @@
-# docker-alpine-pigpiod [![dockerhub-badge][]][dockerhub]
+# docker-alpine-pigpiod 
 
-[dockerhub]:       https://hub.docker.com/r/zinen2/alpine-pigpiod
-[dockerhub-badge]: https://img.shields.io/docker/pulls/zinen2/alpine-pigpiod
+[![Docker Pulls](https://img.shields.io/docker/pulls/zinen2/alpine-pigpiod)](https://hub.docker.com/r/zinen2/alpine-pigpiod)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/zinen2/alpine-pigpiod)](https://hub.docker.com/r/zinen2/alpine-pigpiod)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/joan2937/pigpio?label=pigpio)][pigpio-release]
+![Docker hub auto publish image](https://github.com/zinen/docker-alpine-pigpiod/workflows/Docker%20hub%20auto%20publish%20image/badge.svg)
 
 Docker image containing [pigpiod](http://abyz.me.uk/rpi/pigpio/pigpiod.html) running on port 8888. 
 Can be used together with [node-red](https://nodered.org/) to access GPIOs on raspberry pi, by installing the package [node-red-node-pi-gpiod](https://flows.nodered.org/node/node-red-node-pi-gpiod).
