@@ -2,7 +2,7 @@ name: Get latest release tag
 on:
   push:
     branches: 
-      - master
+      - main
 
     paths:
       # Run when file is edited
