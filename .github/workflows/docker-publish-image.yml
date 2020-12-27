@@ -9,7 +9,7 @@ on:
       - Dockerfile
       - start.sh
       - release-versions/pigpio-latest.log
-      - .github/workflows/docker-publish.yml
+      - .github/workflows/docker-publish-image.yml
 
   # Run tests for any PRs.
   pull_request:
