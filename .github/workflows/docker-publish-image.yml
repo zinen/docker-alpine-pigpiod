@@ -95,7 +95,7 @@ jobs:
           echo "LABEL org.label-schema.vcs-ref=$GIT_HASH" >> Dockerfile
           echo "LABEL org.label-schema.version=$PIGPIO_VERSION" >> Dockerfile
           echo "LABEL org.label-schema.schema-version=1.0.0-rc.1" >> Dockerfile
-          echo "LABEL org.label-schema.docker.cmd=docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpiod" >> Dockerfile
+          echo "LABEL org.label-schema.docker.cmd=\"docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpiod\"" >> Dockerfile
           # Show edited Dockerfile content
           cat Dockerfile
           
