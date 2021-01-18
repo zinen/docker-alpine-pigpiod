@@ -68,7 +68,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          
+
       - name: Modify Dockerfile pigpio version
         run: |
           # Add label of pigpio version to Dockerfile eg. 'v78'
@@ -77,8 +77,25 @@ jobs:
           # Add varible as a global environment variable
           echo "PIGPIO_VERSION=$PIGPIO_VERSION" >> $GITHUB_ENV
           # Change download link inside Dockerfile to match pigpio version stated here
-          # this is only relevant if two releases are made in a short time 
+          # this is to make sure that the release that triggered this build is the one being downloaded source code from
+          # it will only be relevant if two releases are made in a short time
           sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
+          # Show new Dockerfile content
+          cat Dockerfile
+
+      - name: Add Lable Schema to Dockerfile
+        run: |
+          # Lable Schema based on http://label-schema.org/rc1/
+          TIME_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "LABEL org.label-schema.build-date=$TIME_ISO" >> Dockerfile
+          echo "LABEL org.label-schema.name=pigpiod" >> Dockerfile
+          echo "LABEL org.label-schema.url=http://abyz.me.uk/rpi/pigpio/pigpiod.html" >> Dockerfile
+          echo "LABEL org.label-schema.vcs-url=https://github.com/zinen/docker-alpine-pigpiod" >> Dockerfile
+          GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+          echo "LABEL org.label-schema.vcs-ref=$GIT_HASH >> Dockerfile
+          echo "LABEL org.label-schema.version=$PIGPIO_VERSION" >> Dockerfile
+          echo "LABEL org.label-schema.schema-version=1.0.0-rc.1" >> Dockerfile
+          echo "LABEL org.label-schema.docker.cmd=docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpiod" >> Dockerfile
           # Show new Dockerfile content
           cat Dockerfile
           
