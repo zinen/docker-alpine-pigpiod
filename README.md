@@ -12,7 +12,7 @@ Since this Docker image is based on the Linux distribution **alpine**, the image
 
 Usage: `docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpiod`
 
-*This container must be run on a raspberry pi itself, but the GPIO's is accessible for other devices on port 8888.*
+*Note that this container must run on the raspberry pi itself. But the GPIO's is accessible for other devices on the network at port 8888.*
 
 ### What is pigpiod
 **pigpiod** is a Linux daemon that launches the *[pigpio](http://abyz.me.uk/rpi/pigpio/index.html)*. *pigpio* and **pigpiod** is from the same creator.
@@ -22,7 +22,7 @@ Usage: `docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpio
 As default you should use no tag or `latest`. It should not be necessary to specify the architecture of the board. When pulling an image docker will automatic try to download the right image for you.
 
 But in case docker fails at this the tag below can be used. *I had to specify it to work with [belenaCloud](https://www.balena.io/cloud).*
-Eg. for running on raspberry pi (1) this worked for me: `docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpiod:arm32v6`
+Eg. for running on raspberry pi 1 this worked for me: `docker run -it -p 8888:8888 --device /dev/gpiochip0 zinen2/alpine-pigpiod:arm32v6`
 
 | Device Name | Docker image tag | Tested?* | [pigpio version tested][pigpio-release] |
 | --- | --- | --- | --- |
@@ -37,7 +37,7 @@ Some problems can also be fixed by running the container privileged. In that cas
 \**If you test it on your hardware, please respond back if it worked. By issue or pull request.*
 
 ### Specific version
-It is possible to pull a specific version via. eg. `docker pull zinen2/alpine-pigpiod:pigpio-v78` for pulling version 78. See list of tags available on docker hub.  
+It is possible to pull a specific version via. eg. `docker pull zinen2/alpine-pigpiod:pigpio-v78` for pulling version 78. See list of tags available on [docker hub](https://hub.docker.com/repository/docker/zinen2/alpine-pigpiod/tags).  
 
 ### Updates of images
 The images are automatic updated when a new release of pigpio is posted at [github releases][pigpio-release].
