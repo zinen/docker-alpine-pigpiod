@@ -19,8 +19,8 @@ COPY --from=builder /usr/local /usr/local
 # Copy app into image
 COPY start.sh /start.sh
 # Fix for 64-bit systems as they need other run pars then 32-bit.
-ARG ARCH=32bit
-RUN if [ "$ARCH" = "64bit" ] ; then sed -i -e 's/pigpiod -g -a 1/pigpiod -g/g' start.sh && echo 64bit; else echo $ARCH ; fi
+ARG BUILDARCH=32bit
+RUN if [ "$BUILDARCH" = "64bit" ] ; then sed -i -e 's/pigpiod -g -a 1/pigpiod -g/g' start.sh && echo BUILDARCH 64bit; else echo BUILDARCH $BUILDARCH ; fi
 # Make sure file has execution permission
 RUN chmod +x /start.sh
 # Start app
