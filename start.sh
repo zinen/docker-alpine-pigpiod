@@ -14,8 +14,9 @@ fi
 
 echo "Starting daemon pigpiod ..."
 # for pigpiod options see http://abyz.me.uk/rpi/pigpio/pigpiod.html
-#    option -g will run the deamon in the foreground.
-#    option -a 1 should assure that we are not using GPU memory.
+#  option -g will run the deamon in the foreground.
+#  option -a 1 should assure that we are not using GPU memory.
+#     for running on 64bit, don't include the '-a 1' flag https://github.com/zinen/docker-alpine-pigpiod/issues/17
 pigpiod -g -a 1
 echo "... daemon stopped unexpectedly."
 
