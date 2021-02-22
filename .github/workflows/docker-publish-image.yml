@@ -1,6 +1,7 @@
 name: Docker hub auto publish image
 
 on:
+  # Test and publish on push dispath
   push:
     branches:
       - main
@@ -13,6 +14,14 @@ on:
 
   # Run tests for any PRs.
   pull_request:
+
+  # Test and publish on workflow dispath
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version of pigpio to get'
+        required: true
+        default: 'v78'
 
 env:
   # Image name at docker hub
@@ -27,6 +36,12 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
+        
+      - name: Get varible from workflow dispath
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          # Write content of input form workflow_dispatch to file
+          echo ${{ github.event.inputs.version }} > release-versions/pigpio-latest.log
 
       - name: Modify Dockerfile pigpio version
         run: |
@@ -51,7 +66,7 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
 
     steps:
       - name: Checkout 
@@ -68,6 +83,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Get varible from workflow dispath
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          # Write content of input form workflow_dispatch to file
+          echo ${{ github.event.inputs.version }} > release-versions/pigpio-latest.log
 
       - name: Modify Dockerfile pigpio version
         run: |
