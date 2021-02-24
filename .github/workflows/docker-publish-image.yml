@@ -1,7 +1,7 @@
 name: Docker hub auto publish image
 
 on:
-  # Test and publish on push dispath
+  # Test and publish on push
   push:
     branches:
       - main
@@ -15,7 +15,7 @@ on:
   # Run tests for any PRs.
   pull_request:
 
-  # Test and publish on workflow dispath
+  # Test and publish on workflow dispatch
   workflow_dispatch:
     inputs:
       version:
@@ -24,7 +24,7 @@ on:
         default: 'v78'
 
 env:
-  # Image name at docker hub
+  # Image name at Docker Hub
   IMAGE_NAME: zinen2/alpine-pigpiod
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
         
-      - name: Get varible from workflow dispath
+      - name: Get variable from workflow dispatch
         if: github.event_name == 'workflow_dispatch'
         run: |
           # Write content of input form workflow_dispatch to file
@@ -84,7 +84,7 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Get varible from workflow dispath
+      - name: Get variable from workflow dispatch
         if: github.event_name == 'workflow_dispatch'
         run: |
           # Write content of input form workflow_dispatch to file
