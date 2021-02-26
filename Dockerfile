@@ -14,6 +14,8 @@ RUN wget --output-document=download.zip https://github.com/joan2937/pigpio/archi
     && make install
 # Start of new base image
 FROM alpine
+# Running pigpiod in foreground then container should request SIGKILL right away and not the default SIGTERM, wait 10 sec., and then SIGKILL. 
+STOPSIGNAL SIGKILL
 LABEL maintainer="zinen@users.noreply.github.com"
 COPY --from=builder /usr/local /usr/local
 # Copy app into image
