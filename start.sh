@@ -15,8 +15,7 @@ fi
 echo "Starting daemon pigpiod ..."
 # for pigpiod options see http://abyz.me.uk/rpi/pigpio/pigpiod.html
 #    option -g will run the deamon in the foreground.
-#    option -a 1 should assure that we are not using GPU memory.
-pigpiod -g -a 1
+pigpiod -g
 echo "... daemon stopped unexpectedly."
 
 # added extra logic for issue: https://github.com/janvda/balena-node-red/issues/1
