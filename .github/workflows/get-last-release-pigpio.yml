@@ -64,7 +64,7 @@ jobs:
           git config user.email "bot_${{ github.event_name }}"
           # Add all files to commit in current and sub folders
           git add .
-          git status
-          git commit -m "A ${{ github.event_name }} added this"
+          # Check if something changed and then commit
+          git diff --quiet HEAD || git commit -m "A ${{ github.event_name }} added this"
           git push
           
