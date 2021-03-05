@@ -60,11 +60,10 @@ jobs:
       - name: Push changes
         # This needs actions/checkoutv2 to be able push to repo
         run: |
-          git config user.name "bot_${{ github.event_name }}@users.noreply.github.com"
-          git config user.email "bot_${{ github.event_name }}"
+          git config user.name "bot_${{ github.event_name }}"
+          git config user.email "bot_${{ github.event_name }}@users.noreply.github.com"
           # Add all files to commit in current and sub folders
           git add .
           # Check if something changed and then commit
           git diff --quiet HEAD || git commit -m "A ${{ github.event_name }} added this"
           git push
-          
