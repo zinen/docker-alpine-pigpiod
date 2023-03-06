@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          # Use PAT so allow this action to triger a new action
+          # Use PAT so allow this action to trigger a new action
           token: ${{ secrets.PAT }}
           
       - name: Fetch latest release tag
@@ -58,7 +58,7 @@ jobs:
 #           assignees: zinen
 
       - name: Push changes
-        # This needs actions/checkoutv2 to be able push to repo
+        # This needs actions/checkout to be able push to repo
         run: |
           git config user.name "bot_${{ github.event_name }}"
           git config user.email "bot_${{ github.event_name }}@users.noreply.github.com"
