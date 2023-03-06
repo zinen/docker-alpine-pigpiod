@@ -23,7 +23,7 @@ COPY --from=builder /usr/local /usr/local
 COPY start.sh /start.sh
 # TARGETARCH is filed when building multi-architecture images by buildx
 ARG TARGETARCH
-# Fix for 64-bit systems as they need other run parms then 32-bit https://github.com/zinen/docker-alpine-pigpiod/issues/17
+# Fix for 64-bit systems as they need other run parameters then 32-bit https://github.com/zinen/docker-alpine-pigpiod/issues/17
 RUN if [ "$TARGETARCH" = "arm64" ] ; then sed -i -e 's/pigpiod -g -a 1/pigpiod -g/g' start.sh && echo TARGETARCH arm64; else echo TARGETARCH $TARGETARCH ; fi
 # Make sure file has execution permission
 RUN chmod +x /start.sh
