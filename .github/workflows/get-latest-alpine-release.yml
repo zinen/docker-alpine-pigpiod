@@ -1,0 +1,51 @@
+name: Get latest alpine release
+on:
+  push:
+    #branches: 
+    #  - main
+    #paths:
+      # Run when file is edited
+    #  - .github/workflows/get-last-release-pigpio.yml
+
+  #schedule:
+  #  - cron:  '0 10 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  get-docker-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Docker Image Update Checker
+        id: check
+        uses: lucacome/docker-image-update-checker@v1.2.1
+        with:
+          base-image: alpine
+          image: zinen2/alpine-pigpiod:latest
+          platforms: linux/arm/v6,linux/arm/v7,linux/arm64
+        env:
+          DEBUG: true
+          
+      - name: Check result
+        if: needs.check.outputs.needs-updating == 'true'
+        run: |
+          echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
+          RELEASE_TIME=$( date )
+          echo Release time $RELEASE_TIME
+          # Save the found release to a file in folder(folder must be there before)
+          echo $RELEASE_TIME > release-versions/alpine-new-release.log
+          
+      - name: Push changes
+        if: needs.check.outputs.needs-updating == 'true'
+        # This needs actions/checkout to be able push to repo
+        run: |
+          git config user.name "bot_${{ github.event_name }}"
+          git config user.email "bot_${{ github.event_name }}@users.noreply.github.com"
+          # Add all files to commit in current and sub folders
+          git add .
+          # Check if something changed and then commit
+          git diff --quiet HEAD || git commit -m "A ${{ github.event_name }} added this"
+          # git push
