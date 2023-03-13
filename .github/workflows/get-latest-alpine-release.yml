@@ -55,4 +55,4 @@ jobs:
           git add .
           # Check if something changed and then commit
           git diff --quiet HEAD || git commit -m "A ${{ github.event_name }} added this"
-          # git push
+          git push
