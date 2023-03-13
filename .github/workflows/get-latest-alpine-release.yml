@@ -27,12 +27,12 @@ jobs:
         
       - name: Docker Image Update Checker
         id: check
-#         uses: lucacome/docker-image-update-checker@v1.2.1
-        uses: mkumatag/container-image-updater-action@v1.0.5
+        uses: lucacome/docker-image-update-checker@v1.2.1
+#         uses: mkumatag/container-image-updater-action@v1.0.5
         with:
           base-image: alpine:latest
           image: zinen2/alpine-pigpiod:latest
-          platforms: linux/arm,linux/arm64
+#           platforms: linux/arm,linux/arm64
         env:
           DEBUG: true
           
