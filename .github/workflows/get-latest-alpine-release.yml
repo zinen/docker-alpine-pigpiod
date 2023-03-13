@@ -32,7 +32,7 @@ jobs:
         with:
           base-image: alpine:latest
           image: zinen2/alpine-pigpiod:latest
-          platforms: linux/arm
+          platforms: linux/arm64
         env:
           DEBUG: true
           
