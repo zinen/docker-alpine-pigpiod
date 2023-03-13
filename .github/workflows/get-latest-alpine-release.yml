@@ -37,7 +37,7 @@ jobs:
           DEBUG: true
           
       - name: Check result
-        if: needs.check.outputs.needs-updating == 'true'
+        #if: needs.check.outputs.needs-updating == 'true'
         run: |
           echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
           RELEASE_TIME=$( date )
@@ -46,7 +46,7 @@ jobs:
           echo $RELEASE_TIME > release-versions/alpine-new-release.log
           
       - name: Push changes
-        if: needs.check.outputs.needs-updating == 'true'
+        #if: needs.check.outputs.needs-updating == 'true'
         # This needs actions/checkout to be able push to repo
         run: |
           git config user.name "bot_${{ github.event_name }}"
