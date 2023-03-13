@@ -32,9 +32,9 @@ jobs:
         with:
           base-image: alpine:latest
           image: zinen2/alpine-pigpiod:latest
-          platforms: linux/arm64
-        env:
-          DEBUG: true
+#           platforms: linux/arm64
+#         env:
+#           DEBUG: true
           
       - name: Check result
         #if: needs.check.outputs.needs-updating == 'true'
@@ -44,6 +44,7 @@ jobs:
           echo Release time $RELEASE_TIME
           # Save the found release to a file in folder(folder must be there before)
           echo $RELEASE_TIME > release-versions/alpine-new-release.log
+          cat release-versions/alpine-new-release.log
           
       - name: Push changes
         #if: needs.check.outputs.needs-updating == 'true'
