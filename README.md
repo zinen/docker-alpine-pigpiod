@@ -33,10 +33,10 @@ E.g. for running on Raspberry Pi 1 this worked for me: `docker run -it -p 8888:8
 | Device Name | Docker image tag | Tested?* ✔/❌| [pigpio version tested][pigpio-release] |
 | --- | --- | --- | --- |
 | Raspberry Pi (1, Zero, Zero W) | zinen2/alpine-pigpiod:arm32v6 | ✔ yes, works on rpi1 | 76 |
-| Raspberry Pi 2 | zinen2/alpine-pigpiod:arm32v7 | ✔ yes, works #19 | 79 |
-| Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:arm32v7 | ✔ yes, works | 76, 78 |
-| Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:arm64v8 | ✔ yes, works | 78 |
-| Raspberry Pi 4 | zinen2/alpine-pigpiod:arm64v8 | ✔ yes, works | 78 |
+| Raspberry Pi 2 | zinen2/alpine-pigpiod:latest | ✔ yes, works #19 | 79 |
+| Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:latest | ✔ yes, works | 76, 78 |
+| Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:latest | ✔ yes, works | 78 |
+| Raspberry Pi 4 | zinen2/alpine-pigpiod:latest | ✔ yes, works | 78 |
 
 Some problems can also be fixed by running the container privileged. In that case you can try this `docker run -it -p 8888:8888 --privileged zinen2/alpine-pigpiod`
 
