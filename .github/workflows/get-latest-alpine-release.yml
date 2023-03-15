@@ -49,7 +49,7 @@ jobs:
           cat release-versions/alpine-new-release.txt
           
       - name: Push changes
-        if: needs.check.outputs.needs-updating == 'true'
+        #if: needs.check.outputs.needs-updating == 'true'
         # This needs actions/checkout to be able push to repo
         run: |
           git config user.name "bot_${{ github.event_name }}"
