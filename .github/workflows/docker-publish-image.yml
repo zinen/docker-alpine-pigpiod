@@ -9,7 +9,7 @@ on:
       # Run when file is edited
       - Dockerfile
       - start.sh
-      - release-versions/pigpio-latest.log
+      - release-versions/*
       - .github/workflows/docker-publish-image.yml
 
   # Run tests for any PRs.
@@ -21,7 +21,7 @@ on:
       version:
         description: 'Version of pigpio to get'
         required: true
-        default: 'v78'
+        default: 'v79'
 
 env:
   # Image name at Docker Hub
@@ -41,13 +41,13 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           # Write content of input form workflow_dispatch to file
-          echo ${{ github.event.inputs.version }} > release-versions/pigpio-latest.log
+          echo ${{ github.event.inputs.version }} > release-versions/pigpio-latest.txt
 
       - name: Modify Dockerfile pigpio version
         run: |
           # Change download link inside Dockerfile to match pigpio version stated here
           # this is only relevant if two releases are made in a short time 
-          PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
+          PIGPIO_VERSION=$(cat release-versions/pigpio-latest.txt)
           sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
           # Show new Dockerfile content
           cat Dockerfile
@@ -88,12 +88,12 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           # Write content of input form workflow_dispatch to file
-          echo ${{ github.event.inputs.version }} > release-versions/pigpio-latest.log
+          echo ${{ github.event.inputs.version }} > release-versions/pigpio-latest.txt
 
       - name: Modify Dockerfile pigpio version
         run: |
           # Add label of pigpio version to Dockerfile eg. 'v78'
-          PIGPIO_VERSION=$(cat release-versions/pigpio-latest.log)
+          PIGPIO_VERSION=$(cat release-versions/pigpio-latest.txt)
           echo "LABEL pigpio_version=$PIGPIO_VERSION" >> Dockerfile
           # Add variable as a global environment variable
           echo "PIGPIO_VERSION=$PIGPIO_VERSION" >> $GITHUB_ENV
@@ -131,25 +131,25 @@ jobs:
             ${{ env.IMAGE_NAME }}:arm32v6-pigpio-${{ env.PIGPIO_VERSION }}
             ${{ env.IMAGE_NAME }}:arm32v6
           
-      - name: Build and push arm32v7
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/arm/v7
-          push: true
-          tags: |
-            ${{ env.IMAGE_NAME }}:arm32v7
+#       - name: Build and push arm32v7
+#         uses: docker/build-push-action@v3
+#         with:
+#           context: .
+#           file: ./Dockerfile
+#           platforms: linux/arm/v7
+#           push: true
+#           tags: |
+#             ${{ env.IMAGE_NAME }}:arm32v7
           
-      - name: Build and push arm64v8
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/arm64
-          push: true
-          tags: |
-            ${{ env.IMAGE_NAME }}:arm64v8
+#       - name: Build and push arm64v8
+#         uses: docker/build-push-action@v3
+#         with:
+#           context: .
+#           file: ./Dockerfile
+#           platforms: linux/arm64
+#           push: true
+#           tags: |
+#             ${{ env.IMAGE_NAME }}:arm64v8
            
       - name: Build and push latest
         uses: docker/build-push-action@v3
