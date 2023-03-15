@@ -46,6 +46,24 @@ jobs:
           echo $RELEASE_TIME > release-versions/alpine-new-release.log
           cat release-versions/alpine-new-release.log
           
+          
+      - name: write file try 2
+        #if: needs.check.outputs.needs-updating == 'true'
+        run: |
+          echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
+          RELEASE_TIME=$( date )
+          echo Release time $RELEASE_TIME
+          # Save the found release to a file in folder(folder must be there before)
+          #echo $RELEASE_TIME > release-versions/alpine-new-release.log
+          #cat release-versions/alpine-new-release.log
+          
+          
+          
+          # EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          # echo "JSON_RESPONSE<<$EOF" >> $GITHUB_ENV
+          date > release-versions/alpine-new-release2.log
+          # echo "$EOF" >> $GITHUB_ENV
+          
       - name: Push changes
         #if: needs.check.outputs.needs-updating == 'true'
         # This needs actions/checkout to be able push to repo
