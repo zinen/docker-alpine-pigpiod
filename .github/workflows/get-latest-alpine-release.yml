@@ -3,12 +3,12 @@ on:
   push:
     #branches: 
     #  - main
-    #paths:
+    paths:
       # Run when file is edited
-    #  - .github/workflows/get-last-release-pigpio.yml
+      - .github/workflows/get-latest-alpine-release.yml
 
-  #schedule:
-  #  - cron:  '0 10 * * *'
+  schedule:
+    - cron:  '0 9 * * *'
 
   workflow_dispatch:
 
@@ -16,9 +16,7 @@ jobs:
   get-docker-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
+        # Login to docker is not nessasary for lucacome/docker-image-update-checker@v1.2.1
 #       - name: Login to Docker Hub
 #         uses: docker/login-action@v2
 #         with:
@@ -28,45 +26,30 @@ jobs:
       - name: Docker Image Update Checker
         id: check
         uses: lucacome/docker-image-update-checker@v1.2.1
-#         uses: mkumatag/container-image-updater-action@v1.0.5
         with:
           base-image: alpine:latest
           image: zinen2/alpine-pigpiod:latest
+          # Platforms with variants removed due to issue https://github.com/lucacome/docker-image-update-checker/issues/27
+#           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
           platforms: linux/arm64
 #         env:
 #           DEBUG: true
+  
+      - name: Checkout repo
+        uses: actions/checkout@v3
           
       - name: Check result
-        #if: needs.check.outputs.needs-updating == 'true'
+        if: needs.check.outputs.needs-updating == 'true'
         run: |
           echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
-          RELEASE_TIME=$( date )
-          echo Release time $RELEASE_TIME
-          # Save the found release to a file in folder(folder must be there before)
-          echo $RELEASE_TIME > release-versions/alpine-new-release.txt
+          CURRENT_TIME=$( date )
+          echo Checked time $CURRENT_TIME
+          # Save the current checked time to a file in folder(folder must be there before)
+          echo Checked time $CURRENT_TIME > release-versions/alpine-new-release.txt
           cat release-versions/alpine-new-release.txt
           
-          
-      - name: write file try 2
-        #if: needs.check.outputs.needs-updating == 'true'
-        run: |
-          echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
-          RELEASE_TIME=$( date )
-          echo Release time $RELEASE_TIME
-          # Save the found release to a file in folder(folder must be there before)
-          #echo $RELEASE_TIME > release-versions/alpine-new-release.log
-          #cat release-versions/alpine-new-release.log
-          
-          
-          
-          # EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          # echo "JSON_RESPONSE<<$EOF" >> $GITHUB_ENV
-          date > release-versions/alpine-new-release2.txt
-          cat release-versions/alpine-new-release2.txt
-          # echo "$EOF" >> $GITHUB_ENV
-          
       - name: Push changes
-        #if: needs.check.outputs.needs-updating == 'true'
+        if: needs.check.outputs.needs-updating == 'true'
         # This needs actions/checkout to be able push to repo
         run: |
           git config user.name "bot_${{ github.event_name }}"
@@ -74,5 +57,5 @@ jobs:
           # Add all files to commit in current and sub folders
           git add .
           # Check if something changed and then commit
-          git diff --quiet HEAD || git commit -m "A ${{ github.event_name }} added this"
+          git diff --quiet HEAD || git commit -m "Auto. A ${{ github.event_name }} added this"
           git push
