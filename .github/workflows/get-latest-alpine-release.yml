@@ -43,8 +43,8 @@ jobs:
           RELEASE_TIME=$( date )
           echo Release time $RELEASE_TIME
           # Save the found release to a file in folder(folder must be there before)
-          echo $RELEASE_TIME > release-versions/alpine-new-release.log
-          cat release-versions/alpine-new-release.log
+          echo $RELEASE_TIME > release-versions/alpine-new-release.txt
+          cat release-versions/alpine-new-release.txt
           
           
       - name: write file try 2
@@ -61,7 +61,8 @@ jobs:
           
           # EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           # echo "JSON_RESPONSE<<$EOF" >> $GITHUB_ENV
-          date > release-versions/alpine-new-release2.log
+          date > release-versions/alpine-new-release2.txt
+          cat release-versions/alpine-new-release2.txt
           # echo "$EOF" >> $GITHUB_ENV
           
       - name: Push changes
