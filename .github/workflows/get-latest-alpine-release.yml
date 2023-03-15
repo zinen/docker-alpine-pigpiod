@@ -36,10 +36,11 @@ jobs:
 #           DEBUG: true
   
       - name: Checkout repo
+        #if: needs.check.outputs.needs-updating == 'true'
         uses: actions/checkout@v3
           
       - name: Check result
-        if: needs.check.outputs.needs-updating == 'true'
+        #if: needs.check.outputs.needs-updating == 'true'
         run: |
           echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
           CURRENT_TIME=$( date )
