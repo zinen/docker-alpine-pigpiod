@@ -36,7 +36,7 @@ jobs:
 #           DEBUG: true
 
   push-alpine-release-date:
-    if: needs.check.outputs.needs-updating == 'true'
+    #if: needs.check.outputs.needs-updating == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
