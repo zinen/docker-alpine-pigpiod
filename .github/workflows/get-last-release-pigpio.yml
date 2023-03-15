@@ -1,4 +1,4 @@
-name: Get latest release tag
+name: Get latest pigpio release tag
 on:
   push:
     branches: 
@@ -18,7 +18,7 @@ env:
   REPO_TITLE: pigpio
 
 jobs:
-  get-version:
+  get-pigpio-version:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -46,5 +46,5 @@ jobs:
           # Add all files to commit in current and sub folders
           git add .
           # Check if something changed and then commit
-          git diff --quiet HEAD || git commit -m "A ${{ github.event_name }} added this"
+          git diff --quiet HEAD || git commit -m "Auto. A ${{ github.event_name }} added this"
           git push
