@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - README.md
-      - .github/workflows/docker_update_desc.yml
+      - .github/workflows/docker-update-desc.yml
 
   workflow_dispatch:
 
