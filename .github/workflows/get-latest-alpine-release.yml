@@ -25,15 +25,16 @@ jobs:
         
       - name: Docker Image Update Checker
         id: check
-        uses: lucacome/docker-image-update-checker@v1.2.1
+#         uses: lucacome/docker-image-update-checker@v1.2.1
+        uses: clowa/docker-image-update-checker@342608bb9829d85eeeeb292e78115184b5a6657d
         with:
           base-image: alpine:latest
           image: zinen2/alpine-pigpiod:latest
           # Platforms with variants removed due to issue https://github.com/lucacome/docker-image-update-checker/issues/27
-#           platforms: linux/arm/v6,linux/arm/v7,linux/arm64
-          platforms: linux/arm64
-#         env:
-#           DEBUG: true
+          platforms: linux/arm/v6,linux/arm/v7,linux/arm64
+#           platforms: linux/arm64
+        env:
+          DEBUG: true
 
   push-alpine-release-date:
     needs: get-alpine-release-date
