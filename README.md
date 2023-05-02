@@ -53,21 +53,3 @@ The images are automatic updated when a new release of pigpio is posted at [gith
 
 ## Credits
 `start.sh` is mostly a copy from another project and the creator’s repo is [found here](https://github.com/janvda/balena-node-red).
-
-## Reduce CPU usage
-Adding the argument `-s 10` will almost half the CPU usage as per [this topic](https://github.com/joan2937/pigpio/issues/29#issuecomment-151076670). But this is not the default behavior and will have some disadvantages as well. Read more about this on the link. 
-
-### Usage for docker command:
-
-32bit OS: `docker run zinen2/alpine-pigpiod pigpiod -g -a 1 -s 10`. 
-
-64bit OS: `docker run zinen2/alpine-pigpiod pigpiod -g -s 10`. 
-
-### Usage inside docker-compose.yml
-
-Add this to your file, 32bit OS:
-
-```yaml
-    command: pigpiod -g -a 1 -s 10 # For 32 bits
-    command: pigpiod -g -s 10 # For 64 bits
-```

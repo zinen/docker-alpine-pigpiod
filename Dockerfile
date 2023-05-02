@@ -24,7 +24,7 @@ COPY start.sh /start.sh
 # TARGETARCH is filed when building multi-architecture images by buildx
 ARG TARGETARCH
 # Fix for 64-bit systems as they need other run parameters then 32-bit https://github.com/zinen/docker-alpine-pigpiod/issues/17
-RUN if [ "$TARGETARCH" = "arm64" ] ; then sed -i -e 's/pigpiod -g -a 1/pigpiod -g/g' start.sh && echo TARGETARCH arm64; else echo TARGETARCH $TARGETARCH ; fi
+RUN if [ "$TARGETARCH" = "arm64" ] ; then sed -i -e 's/pigpiod -g -a 1 -s 10/pigpiod -g -s 10/g' start.sh && echo TARGETARCH arm64; else echo TARGETARCH $TARGETARCH ; fi
 # Make sure file has execution permission
 RUN chmod +x /start.sh
 # Start app
