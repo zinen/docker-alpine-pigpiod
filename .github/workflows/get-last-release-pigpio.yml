@@ -34,11 +34,11 @@ jobs:
           # Save the release as github environment variable to be used at later steps
           echo "RELEASE_TAG=$RELEASE_TAG" >> $GITHUB_ENV
           # Print the found release
-          echo Release tag $RELEASE_TAG
+          echo "Release tag $RELEASE_TAG"
           # Save the found release to a file in folder(folder must be there before)
-          echo "$RELEASE_TAG" > release-versions/$REPO_TITLE-latest.txt
+          echo "$RELEASE_TAG" > "release-versions/$REPO_TITLE-latest.txt"
           # Content of file
-          cat release-versions/$REPO_TITLE-latest.txt
+          cat "release-versions/$REPO_TITLE-latest.txt"
 
       - name: Push changes
         # This needs actions/checkout to be able push to repo
