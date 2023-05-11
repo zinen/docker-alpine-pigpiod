@@ -31,10 +31,22 @@ jobs:
         run: |
           # Use github API to get latest release (tag_name)
           RELEASE_TAG=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest | jq -r ".tag_name" )
+          if [ -z "$RELEASE_TAG" ]
+          then
+            echo "Error in found release tag=$RELEASE_TAG"
+            RELEASE_TAG=$( curl -L https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest)
+            echo "Curl content"
+            echo "$RELEASE_TAG"
+            RELEASE_TAG=$($RELEASE_TAG | jq -r ".tag_name" )
+          fi
+          # Print the found release tag
+          echo "Release tag=$RELEASE_TAG"
+          if [ -z "$RELEASE_TAG" ]
+          then
+            exit 1
+          fi
           # Save the release as github environment variable to be used at later steps
           echo "RELEASE_TAG=$RELEASE_TAG" >> $GITHUB_ENV
-          # Print the found release
-          echo "Release tag $RELEASE_TAG"
           # Save the found release to a file in folder(folder must be there before)
           echo "$RELEASE_TAG" > "release-versions/$REPO_TITLE-latest.txt"
           # Content of file
