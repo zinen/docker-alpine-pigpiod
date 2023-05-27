@@ -48,13 +48,13 @@ jobs:
           # Change download link inside Dockerfile to match pigpio version stated here
           # this is only relevant if two releases are made in a short time 
           PIGPIO_VERSION=$(cat release-versions/pigpio-latest.txt)
-          sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
-          # Show new Dockerfile content
-          cat Dockerfile
           if [ -z "$PIGPIO_VERSION" ] || [ "$PIGPIO_VERSION" = "null" ]; then
             echo "Content of PIGPIO_VERSION is null. Cant continue."
             exit 1
           fi
+          sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
+          # Show new Dockerfile content
+          cat Dockerfile
 
       - name: Run tests
         run: |
