@@ -32,6 +32,12 @@ jobs:
           # Use github API to get latest release (tag_name)
           RELEASE_TAG=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest | jq -r ".tag_name" )
           if [ -z "$RELEASE_TAG" ] || [ "$RELEASE_TAG"="null" ]; then
+            if [ -z "$RELEASE_TAG" ]; then
+              echo "null/undefinded"
+            fi
+            if [ "$RELEASE_TAG"="null" ]; then
+              echo "string is literally equal to null" 
+            fi
             echo "Error in found release tag=$RELEASE_TAG"
             RELEASE_TAG=$( curl -L https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest)
             echo "Curl content"
