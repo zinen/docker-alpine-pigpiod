@@ -36,7 +36,7 @@ jobs:
               echo "null/undefinded"
             fi
             if [ "$RELEASE_TAG"="null" ]; then
-              echo "string is literally equal to null" 
+              echo "string is literally equal to null=$RELEASE_TAG" 
             fi
             echo "Error in found release tag=$RELEASE_TAG"
             RELEASE_TAG=$( curl -L https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest)
