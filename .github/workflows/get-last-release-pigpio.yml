@@ -31,11 +31,11 @@ jobs:
         run: |
           # Use github API to get latest release (tag_name)
           RELEASE_TAG=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest | jq -r ".tag_name" )
-          if [ -z "$RELEASE_TAG" ] || [[ "$RELEASE_TAG"=="null" ]]; then
+          if [ -z "$RELEASE_TAG" ] || [[ "$RELEASE_TAG" == "null" ]]; then
             if [ -z "$RELEASE_TAG" ]; then
               echo "null/undefinded"
             fi
-            if [[ "$RELEASE_TAG"=="null" ]]; then
+            if [[ "$RELEASE_TAG" == "null" ]]; then
               echo "string is literally equal to null=$RELEASE_TAG" 
             fi
             echo "Error in found release tag=$RELEASE_TAG"
@@ -46,7 +46,7 @@ jobs:
           fi
           # Print the found release tag
           echo "Release tag=$RELEASE_TAG"
-          if [ -z "$RELEASE_TAG" ] || [[ "$RELEASE_TAG"=="null" ]]; then
+          if [ -z "$RELEASE_TAG" ] || [[ "$RELEASE_TAG" == "null" ]]; then
             echo "Content of RELEASE_TAG is null. Cant continue."
             exit 1
           fi
