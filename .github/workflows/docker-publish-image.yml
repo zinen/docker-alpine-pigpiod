@@ -51,7 +51,7 @@ jobs:
           sed -i "s/master/$PIGPIO_VERSION/" Dockerfile
           # Show new Dockerfile content
           cat Dockerfile
-          if [ -z "$PIGPIO_VERSION" ] || [ "$PIGPIO_VERSION"="null" ]; then
+          if [ -z "$PIGPIO_VERSION" ] || [ "$PIGPIO_VERSION" = "null" ]; then
             echo "Content of PIGPIO_VERSION is null. Cant continue."
             exit 1
           fi
