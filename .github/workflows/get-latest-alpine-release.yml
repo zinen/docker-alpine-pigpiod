@@ -47,6 +47,7 @@ jobs:
     steps:          
       - name: Check result
         run: |
+          echo "DEBUG Steps updating: ${{ steps.check.outputs.needs-updating }}"
           echo "DEBUG Needs updating: ${{ needs.check.outputs.needs-updating }}"
 
   push-alpine-release-date:
