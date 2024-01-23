@@ -70,7 +70,7 @@ jobs:
 
   check-docker-scout:
     needs: get-alpine-release-date
-    if: needs.check.outputs.needs-updating == 'false' || github.event_name == 'workflow_dispatch'
+    if: needs.check.outputs.needs-updating != 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Authenticate to Docker
