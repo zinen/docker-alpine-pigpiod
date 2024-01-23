@@ -85,7 +85,7 @@ jobs:
         #if: ${{ github.event_name == 'pull_request' }}
         uses: docker/scout-action@v1
         with:
-          command: compare
+          command: quickview #compare
           image: zinen2/alpine-pigpiod:latest
           #to-env: production
           ignore-unchanged: true
