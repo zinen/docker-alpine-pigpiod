@@ -19,6 +19,8 @@ STOPSIGNAL SIGKILL
 EXPOSE 8888
 LABEL maintainer="zinen@users.noreply.github.com"
 COPY --from=builder /usr/local /usr/local
+# Securing image: Remove apk package manager
+RUN rm -f /sbin/apk
 # Copy app into image
 COPY start.sh /start.sh
 # TARGETARCH is filed when building multi-architecture images by buildx
