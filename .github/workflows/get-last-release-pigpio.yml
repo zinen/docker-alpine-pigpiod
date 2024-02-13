@@ -28,9 +28,11 @@ jobs:
           token: ${{ secrets.PAT }}
           
       - name: Fetch latest release tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Use github API to get latest release (tag_name)
-          RELEASE_TAG=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest | jq -r ".tag_name" )
+          RELEASE_TAG=$( curl -sL https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest --header "Authorization: Bearer $GH_TOKEN" | jq -r ".tag_name" )
           if [ -z "$RELEASE_TAG" ] || [ "$RELEASE_TAG" = "null" ]; then
             echo "Error in found release tag=$RELEASE_TAG"
             RELEASE_TAG=$( curl -L https://api.github.com/repos/$REPO_OWNER/$REPO_TITLE/releases/latest)
