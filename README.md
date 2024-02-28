@@ -37,6 +37,7 @@ E.g. for running on Raspberry Pi 1 this worked for me: `docker run -it -p 8888:8
 | Raspberry Pi 3 (32bit) | zinen2/alpine-pigpiod:latest | ✔ yes, works | 76, 78 |
 | Raspberry Pi 3 (64bit) | zinen2/alpine-pigpiod:latest | ✔ yes, works | 78 |
 | Raspberry Pi 4 | zinen2/alpine-pigpiod:latest | ✔ yes, works | 78 |
+| Raspberry Pi 5 | zinen2/alpine-pigpiod:latest | ❌ unconfimred | N/A |
 
 Some problems can also be fixed by running the container privileged. In that case you can try this `docker run -it -p 8888:8888 --privileged zinen2/alpine-pigpiod`
 
